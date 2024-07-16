@@ -1,0 +1,17 @@
+.container {
+    text-align: center;
+    padding: 50px;
+  }
+  
+  .changeButton {
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    background-color: #0070f3;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .changeButton:hover {
+    background-color: #005bb5;
+  }

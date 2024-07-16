@@ -1,0 +1,3 @@
+crontab-server/node_modules/*
+real-time-data-viewer/node_modules/*
+real-time-data-viewer/.next/*

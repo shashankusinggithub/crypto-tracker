@@ -1,0 +1,43 @@
+services:
+  app:
+    build: ./real-time-data-viewer
+    container_name: nextjs-app
+    restart: always
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017
+      - APIKEY = 1d55a7e6-c3e2-4482-893d-51a78a34ee1d
+      - API = https://api.livecoinwatch.com/coins/map
+    depends_on:
+      - mongo
+      - crontab
+
+  mongo:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    volumes:
+      - mongo-data:/data/db
+
+  nginx:
+    image: nginx
+    container_name: nginx
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - app
+
+  crontab:
+    build: ./crontab-server
+    container_name: crontab
+    environment:
+      - MONGODB_URI=mongodb://mongo:27017
+      - APIKEY = 1d55a7e6-c3e2-4482-893d-51a78a34ee1d
+      - API = https://api.livecoinwatch.com/coins/map
+    restart: always
+    depends_on:
+      - mongo
+
+volumes:
+  mongo-data:
